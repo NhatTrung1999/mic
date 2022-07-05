@@ -60,7 +60,7 @@ button:focus {
     display: inline-block;
     width: 20px;
     height: 20px;
-    /* background-image: url(../img_ui/warning.svg); */
+    background-image: url(../img_ui/warning.svg);
     background-repeat: no-repeat;
     background-position: center;
     position: absolute;
@@ -239,7 +239,7 @@ div.flex-end {
     content: '';
     height: 18px;
     width: 18px;
-    /* background-image: url(../img_ui/chroma_studio.svg); */
+    background-image: url(../img_ui/chroma_studio.svg);
     display: inline-block;
     position: absolute;
     top: 4px;
@@ -264,7 +264,7 @@ div.flex-end {
     content: '';
     height: 18px;
     width: 18px;
-    /* background-image: url(../img_ui/chroma_sync.svg); */
+    background-image: url(../img_ui/chroma_sync.svg);
     display: inline-block;
     position: absolute;
     top: 4px;
@@ -334,7 +334,7 @@ div.flex-end {
     max-width: 44px;
     /*background-color: orange;*/
 
-    /* background-image: url('../img_ui/windows_logo.svg'); */
+    background-image: url('../img_ui/windows_logo.svg');
     background-position: center;
     background-repeat: no-repeat;
     margin-right: 20px;
