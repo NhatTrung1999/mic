@@ -1,8 +1,8 @@
-function Help() {
+function Tooltip() {
     return (
         <>
-            <div class="help"></div>
-            <div class="tip">
+            <div className="help"></div>
+            <div className="tip">
                 I'm just a tooltip. I'm just a tooltip. I'm just a tooltip. I'm
                 just a tooltip. I'm just a tooltip.
             </div>
@@ -10,4 +10,4 @@ function Help() {
     );
 }
 
-export default Help;
+export default Tooltip;
