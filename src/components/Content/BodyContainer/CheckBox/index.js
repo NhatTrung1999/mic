@@ -3,6 +3,25 @@ import { useState } from "react";
 function CheckBox(props) {
     const [checkSh, setCheckSh] = useState(false);
 
+    const [value, setValue] = useState(props.start)
+    const [width, setWidth] = useState(
+        ((props.start - props.minium) / (props.maxium - props.minium)) * (props.end - 16) + 8 + "px"
+    );
+    const [left, setLeft] = useState(
+        (((props.start - props.minium) / (props.maxium - props.minium)) * (props.end - 16) + 8) - 14.744 + "px"
+    )
+
+    const valueAuto = (e) => {
+        setValue(e.target.value);
+        setWidth(
+            ((e.target.value - props.minium) / (props.maxium - props.minium)) * (props.end - 16) + 8 + "px"
+        );
+        setLeft(
+            (((e.target.value - props.minium) / (props.maxium - props.minium)) * (props.end - 16) + 8) - 14.744 + "px"
+        )
+    }
+
+
     const clickCheckSh = () => {
         setCheckSh(!checkSh);
     };
@@ -23,25 +42,25 @@ function CheckBox(props) {
                 <div
                     id={props.idSl + "Fill"}
                     className="left"
-                    // style={{width: width}}
+                    style={{width: width}}
                 ></div>
                 <div className="track"></div>
                 <div
                     id={props.idSl + "Tip"}
                     className="slider-tip"
-                    // style={{ left: left }}
+                    style={{ left: left }}
                 >
-                    {/* {value} */}
+                    {value}
                 </div>
                 <input
                     type="range"
-                    min={10}
-                    max={100}
-                    // value={value}
+                    min={props.minium}
+                    max={props.maxium}
+                    value={value}
                     step={1}
                     className="slider"
                     id={props.idSl + "Range"}
-                    // onChange={autoSetvalue}
+                    onChange={valueAuto}
                 />
             </div>
         </>

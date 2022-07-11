@@ -16,6 +16,8 @@ function BodyContainer() {
                         idSl="slPhone"
                         min="low"
                         max="high"
+                        minium={10}
+                        maxium={100}
                         start={55}
                         end={520}
                     />
@@ -35,6 +37,8 @@ function BodyContainer() {
                         idSl="slSensi"
                         min="low"
                         max="high"
+                        minium={10}
+                        maxium={100}
                         start={55}
                         end={520}
                     />
@@ -51,8 +55,10 @@ function BodyContainer() {
                         idSl="slSide"
                         min={0}
                         max={100}
+                        minium={0}
+                        maxium={100}
                         start={50}
-                        end={480}
+                        end={520}
                     />
                 </div>
 
@@ -63,24 +69,30 @@ function BodyContainer() {
                         idCk="checkNorm"
                         ckText="Volume Normalization"
                         idSl="slNorm"
-                        // start={50}
-                        // end={492}
+                        minium={10}
+                        maxium={100}
+                        start={50}
+                        end={490}
                     />
 
                     <CheckBox
                         idCk="checkAmb"
                         ckText="Ambient Noise Reduction"
                         idSl="slAmb"
-                        // start={50}
-                        // end={492}
+                        minium={10}
+                        maxium={100}
+                        start={50}
+                        end={490}
                     />
 
                     <CheckBox
                         idCk="checkClarity"
                         ckText="Voice Clarity"
                         idSl="slClarity"
-                        // start={50}
-                        // end={492}
+                        minium={10}
+                        maxium={100}
+                        start={50}
+                        end={490}
                     />
                 </div>
             </div>

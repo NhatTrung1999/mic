@@ -4,13 +4,21 @@ function Header(props) {
 
     const [checkSh, setCheckSh] = useState(false);
     const [value, setValue] = useState(props.start)
-    const [width, setWidth] = useState((props.end / 90) * (props.start - 10));
-    const [left, setLeft] = useState((props.end / 90) * (props.start - 10) - props.start)
+    const [width, setWidth] = useState(
+        ((props.start - props.minium) / (props.maxium - props.minium)) * (props.end - 16) + 8 + "px"
+    );
+    const [left, setLeft] = useState(
+        (((props.start - props.minium) / (props.maxium - props.minium)) * (props.end - 16) + 8) - 14.744 + "px"
+    )
 
     const valueAuto = (e) => {
         setValue(e.target.value);
-        setWidth((props.end / 90) * (e.target.value - 10));
-        setLeft((props.end / 90) * (e.target.value - 10) - e.target.value)
+        setWidth(
+            ((e.target.value - props.minium) / (props.maxium - props.minium)) * (props.end - 16) + 8 + "px"
+        );
+        setLeft(
+            (((e.target.value - props.minium) / (props.maxium - props.minium)) * (props.end - 16) + 8) - 14.744 + "px"
+        )
     }
 
     const clickCheckSh = () => {
@@ -42,8 +50,8 @@ function Header(props) {
                 </div>
                 <input
                     type="range"
-                    min="10"
-                    max="100"
+                    min={props.minium}
+                    max={props.maxium}
                     value={value}
                     step="1"
                     className="slider"
