@@ -1,7 +1,6 @@
-import { useState } from 'react'
+import { useState } from "react";
 
 function ProfileBar() {
-
     const ListDrop = [
         "default profile",
         "profile 2",
@@ -16,8 +15,8 @@ function ProfileBar() {
     const [showdl, setShowdl] = useState(false);
     const [showDrop, setShowDrop] = useState(false);
     const [title, setTitle] = useState("profile 5");
-    const [List, setList] = useState(ListDrop);
-    const [indexIp, setIndexIp] = useState(0);
+    const [ListProfile, setListProfile] = useState(ListDrop);
+    const [indexID, setIndexID] = useState(0);
 
     const dropDown = () => {
         setShowDrop(!showDrop);
@@ -31,39 +30,23 @@ function ProfileBar() {
         setShowdl(!showdl);
     };
 
-    //add profile
     const addProfile = () => {
-        var name = "new profile";
-        var increase = 0;
-        for (var i = 0; i < List.length; i++) {
-            if (List[i].replace(" ", "").substring(0, 10) === "newprofile") {
-                increase++;
-            }
-        }
-        if (increase === 0) {
-            name = "new profile";
-        } else {
-            name = "new profile (" + increase + ")";
-        }
-        setList((prev) => {
-            const newProfile = [...prev, name];
-            return newProfile;
-        });
+        let name = "new profile";
+        setListProfile([...ListProfile, name]);
         setTitle(name);
-        setIndexIp(List.length);
     };
 
-    //delete
-    const delProfile = () => {
-        if (List.length === 0) {
-            return setShowdl(false);
+    const deleteProfile = (id) => {
+        if(ListProfile.length <= 1) {
+            // hien attribute disabled
         }
-        const newProfile = [...List];
-        newProfile.splice(indexIp, 1);
-        setList(newProfile);
+
+        const newProfile = [...ListProfile]
+        newProfile.splice(indexID, 1);
+        setListProfile(newProfile);
         setShowdl(false);
-        setTitle(List[indexIp - 1]);
-        setIndexIp(indexIp - 1);
+        setTitle(ListProfile[indexID - 1]);
+        setIndexID(indexID - 1)
         return newProfile;
     };
 
@@ -71,12 +54,7 @@ function ProfileBar() {
         <div className="profile-bar flex">
             <div className="loader" tooltip="Syncing Profiles"></div>
             <div>profile</div>
-            <input
-                type="text"
-                name="profile"
-                id="profileEdit"
-                maxLength="25"
-            />
+            <input type="text" name="profile" id="profileEdit" maxLength="25" />
 
             <div className="dropdown-area" onClick={dropDown}>
                 <div
@@ -90,12 +68,12 @@ function ProfileBar() {
                     id="profileDropOpt"
                     className={`s3-options flex ${showDrop ? "expand" : ""}`}
                 >
-                    {ListDrop.map((item, index) => (
+                    {ListProfile.map((item, index) => (
                         <div
                             className="option"
                             onClick={() => {
                                 setTitle(item);
-                                setIndexIp(index);
+                                setIndexID(index)
                             }}
                             key={index}
                         >
@@ -145,7 +123,7 @@ function ProfileBar() {
                 <div
                     className="thx-btn"
                     id="deleteConfirm"
-                    onClick={delProfile}
+                    onClick={deleteProfile}
                 >
                     delete
                 </div>
