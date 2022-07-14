@@ -17,6 +17,8 @@ function ProfileBar() {
     const [title, setTitle] = useState("profile 5");
     const [ListProfile, setListProfile] = useState(ListDrop);
     const [indexID, setIndexID] = useState(0);
+    const [showIP, setShowIP] = useState(false);
+    const [save, setSave] = useState(false);
 
     const dropDown = () => {
         setShowDrop(!showDrop);
@@ -30,31 +32,115 @@ function ProfileBar() {
         setShowdl(!showdl);
     };
 
+    const clickShowIP = () => {
+        setShowIP(!showIP);
+    };
+
+    document.querySelector("html").onclick = (e) => {
+        if (e.target !== document.getElementById("profileDrop")) {
+            setShowDrop(false);
+        }
+        if (e.target !== document.getElementById("profileMenuToggle")) {
+            setShowMore(false);
+        }
+        if (showIP === true) {
+            if (e.target !== document.getElementById("profileEdit")) {
+                setSave(true);
+            }
+        }
+        
+        if (save === true) {
+            renameProfile();
+            setSave(false);
+            setShowIP(!showIP);
+        }
+    };
+
     const addProfile = () => {
-        let name = "new profile";
+        let name = "";
+        let up = 0;
+        for (var i = 0; i < ListProfile.length; i++) {
+            if (
+                ListProfile[i].replace(" ", "").substring(0, 10) ===
+                "newprofile"
+            ) {
+                up++;
+            }
+        }
+        if (up === 0) {
+            name = "new profile";
+        } else {
+            name = "new profile (" + up + ")";
+        }
         setListProfile([...ListProfile, name]);
         setTitle(name);
     };
 
-    const deleteProfile = (id) => {
-        if(ListProfile.length <= 1) {
+    const duplicateProfile = () => {
+        let name = title;
+        let dupCounter = 0;
+
+        var open = name.lastIndexOf("(");
+        var close = name.lastIndexOf(")");
+        if (open > 0 && close > 0 && close > open) {
+            dupCounter = parseInt(name.substring(open + 1, close)) + 1;
+            name = name.substring(0, open);
+        } else {
+            dupCounter = 1;
+        }
+
+        name = name + " (" + dupCounter + ")";
+
+        setListProfile([...ListProfile, name]);
+        setTitle(name);
+    };
+
+    const deleteProfile = () => {
+        if (ListProfile.length <= 1) {
             // hien attribute disabled
         }
 
-        const newProfile = [...ListProfile]
+        const newProfile = [...ListProfile];
         newProfile.splice(indexID, 1);
         setListProfile(newProfile);
         setShowdl(false);
         setTitle(ListProfile[indexID - 1]);
-        setIndexID(indexID - 1)
+        setIndexID(indexID - 1);
         return newProfile;
     };
+
+    const renameProfile = () => {
+        if (title !== "") {
+            const newTodoList = [...ListProfile];
+            newTodoList.fill(title, indexID, indexID + 1);
+            setListProfile(newTodoList);
+            setShowdl(false);
+            setTitle(title);
+            return newTodoList;
+        }
+    }
+
+    const handleFocus = (event) => {
+        const newValue = event.target.select();
+        console.log(newValue)
+    }
 
     return (
         <div className="profile-bar flex">
             <div className="loader" tooltip="Syncing Profiles"></div>
             <div>profile</div>
-            <input type="text" name="profile" id="profileEdit" maxLength="25" />
+            <input
+                type="text"
+                name="profile"
+                id="profileEdit"
+                maxLength="25"
+                onFocus={handleFocus}
+                value={title}
+                className={`${showIP ? "show" : ""}`}
+                onChange={(e) => {
+                    setTitle(e.target.value);
+                }}
+            />
 
             <div className="dropdown-area" onClick={dropDown}>
                 <div
@@ -73,8 +159,9 @@ function ProfileBar() {
                             className="option"
                             onClick={() => {
                                 setTitle(item);
-                                setIndexID(index)
+                                setIndexID(index);
                             }}
+                            id={index}
                             key={index}
                         >
                             {item}
@@ -97,8 +184,12 @@ function ProfileBar() {
                     </div>
                     <div className="act action">import</div>
                     <div className="act divider"></div>
-                    <div className="act action">rename</div>
-                    <div className="act action">duplicate</div>
+                    <div className="act action" onClick={clickShowIP}>
+                        rename
+                    </div>
+                    <div className="act action" onClick={duplicateProfile}>
+                        duplicate
+                    </div>
                     <div className="act action">export</div>
                     <div className="act divider"></div>
                     <div
