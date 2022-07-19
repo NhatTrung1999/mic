@@ -11,7 +11,7 @@ function SideTone() {
 
     return (
         <>
-            <Slider
+            <Switch
                 title="title"
                 text="sidetone"
                 idSw="swSide"
@@ -19,7 +19,7 @@ function SideTone() {
                 switch={checkSh ? "" : "on"}
                 onClick={clickCheckSh}
             />
-            <Switch
+            <Slider
                 min={0}
                 max={100}
                 minium={0}

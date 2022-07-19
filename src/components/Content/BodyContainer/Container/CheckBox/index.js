@@ -1,9 +1,12 @@
+import { useEffect, useRef } from "react";
+
 function CheckBox(props) {
+    
     return (
         <>
             <div className="check-item">
-                <input type="checkbox" id={props.idCk} onClick={props.onClick}/>
-                <label htmlFor={props.idCk} className="check-box">
+                <input type="checkbox" checked={props.checked} onChange={props.onChange}/>
+                <label className="check-box" onClick={props.onClick}>
                     <div className="check-text">{props.ckText}</div>
                 </label>
             </div>

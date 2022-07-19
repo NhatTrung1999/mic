@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 function ProfileBar() {
     const ListDrop = [
@@ -16,7 +16,7 @@ function ProfileBar() {
     const [showDrop, setShowDrop] = useState(false);
     const [title, setTitle] = useState("profile 5");
     const [ListProfile, setListProfile] = useState(ListDrop);
-    const [indexID, setIndexID] = useState(0);
+    const [indexID, setIndexID] = useState(4);
     const [showIP, setShowIP] = useState(false);
     const [save, setSave] = useState(false);
 
@@ -32,9 +32,9 @@ function ProfileBar() {
         setShowdl(!showdl);
     };
 
-    const clickShowIP = () => {
-        setShowIP(!showIP);
-    };
+    // const clickShowIP = (e) => {
+    //     setShowIP(!showIP);
+    // };
 
     document.querySelector("html").onclick = (e) => {
         if (e.target !== document.getElementById("profileDrop")) {
@@ -48,11 +48,11 @@ function ProfileBar() {
                 setSave(true);
             }
         }
-        
+
         if (save === true) {
             renameProfile();
             setSave(false);
-            setShowIP(!showIP);
+            // setShowIP(!showIP);
         }
     };
 
@@ -96,15 +96,15 @@ function ProfileBar() {
     };
 
     const deleteProfile = () => {
-        if (ListProfile.length <= 1) {
-            // hien attribute disabled
-        }
+        // if (ListProfile.length <= 1) {
+        //     // hien attribute disabled
+        // }
 
         const newProfile = [...ListProfile];
         newProfile.splice(indexID, 1);
         setListProfile(newProfile);
         setShowdl(false);
-        setTitle(ListProfile[indexID - 1]);
+        setTitle(newProfile[indexID - 1]);
         setIndexID(indexID - 1);
         return newProfile;
     };
@@ -118,11 +118,16 @@ function ProfileBar() {
             setTitle(title);
             return newTodoList;
         }
-    }
+    };
 
-    const handleFocus = (event) => {
-        const newValue = event.target.select();
-        console.log(newValue)
+    const inputRef = useRef(null)
+    
+    const clickShowIP = () => {
+        setShowIP(!showIP);
+    };
+
+    const handleClick = () => {
+        inputRef.current.select();
     }
 
     return (
@@ -134,12 +139,12 @@ function ProfileBar() {
                 name="profile"
                 id="profileEdit"
                 maxLength="25"
-                onFocus={handleFocus}
                 value={title}
                 className={`${showIP ? "show" : ""}`}
                 onChange={(e) => {
                     setTitle(e.target.value);
                 }}
+                ref={inputRef}
             />
 
             <div className="dropdown-area" onClick={dropDown}>
@@ -156,7 +161,9 @@ function ProfileBar() {
                 >
                     {ListProfile.map((item, index) => (
                         <div
-                            className="option"
+                            className={`option ${
+                                item === title ? "selected" : ""
+                            }`}
                             onClick={() => {
                                 setTitle(item);
                                 setIndexID(index);
@@ -184,7 +191,7 @@ function ProfileBar() {
                     </div>
                     <div className="act action">import</div>
                     <div className="act divider"></div>
-                    <div className="act action" onClick={clickShowIP}>
+                    <div className="act action" onClick={()=> {handleClick(); clickShowIP()}}>
                         rename
                     </div>
                     <div className="act action" onClick={duplicateProfile}>

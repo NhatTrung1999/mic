@@ -2,6 +2,7 @@ import { useState } from "react";
 import Slider from "../Container/Slider";
 import Switch from "../Container/Switch";
 
+
 function MicroPhone() {
 
     const [checkSh, setCheckSh] = useState(false);
@@ -12,7 +13,7 @@ function MicroPhone() {
 
     return (
         <>
-            <Slider
+            <Switch
                 title="title"
                 text="microphone"
                 idSw="swPhone"
@@ -20,7 +21,7 @@ function MicroPhone() {
                 switch={checkSh ? "" : "on"}
                 onClick={clickCheckSh}
             />
-            <Switch
+            <Slider
                 idSl="slPhone"
                 min="low"
                 max="high"

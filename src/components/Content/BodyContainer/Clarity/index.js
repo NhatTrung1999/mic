@@ -1,6 +1,6 @@
 import { useState } from "react";
 import CheckBox from "../Container/CheckBox";
-import Switch from "../Container/Switch";
+import Slider from "../Container/Slider";
 
 function Clarity() {
 
@@ -10,10 +10,14 @@ function Clarity() {
         setIsCheck(!isCheck)
     }
 
+    const handleChange = (e) => {
+        return [...isCheck, e.target.checked]
+    } 
+
     return (
         <>
-            <CheckBox idCk="checkClarity" ckText="Voice Clarity" onClick={clickIsCheck}/>
-            <Switch
+            <CheckBox ckText="Voice Clarity" onClick={clickIsCheck} checked={isCheck} onChange={handleChange}/>
+            <Slider
                 idSl="slClarity"
                 minium={10}
                 maxium={100}

@@ -12,7 +12,7 @@ function MicSensi() {
 
     return (
         <>
-            <Slider
+            <Switch
                 title="h2-title mt20"
                 text="mic sensitivity"
                 idSw="swSensi"
@@ -26,7 +26,7 @@ function MicSensi() {
                 onClick={clickCheckSh}
             />
 
-            <Switch
+            <Slider
                 idSl="slSensi"
                 min="low"
                 max="high"

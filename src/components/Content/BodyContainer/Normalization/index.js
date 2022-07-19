@@ -1,6 +1,6 @@
 import { useState } from "react";
 import CheckBox from "../Container/CheckBox";
-import Switch from "../Container/Switch";
+import Slider from "../Container/Slider";
 
 function Normalization() {
 
@@ -10,10 +10,14 @@ function Normalization() {
         setIsCheck(!isCheck)
     }
 
+    const handleChange = (e) => {
+        return [...isCheck, e.target.checked]
+    } 
+
     return (
         <>
-            <CheckBox idCk="checkNorm" ckText="Volume Normalization" onClick={clickIsCheck}/>
-            <Switch
+            <CheckBox ckText="Volume Normalization" onClick={clickIsCheck} checked={isCheck} onChange={handleChange}/>
+            <Slider
                 idSl="slNorm"
                 minium={10}
                 maxium={100}
